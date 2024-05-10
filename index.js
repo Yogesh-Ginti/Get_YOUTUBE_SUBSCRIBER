@@ -2,24 +2,22 @@ const app = require('./app');
 const dotenv = require('dotenv');
 const { connectToMongoDB } = require('./connection');
 
-// Load environment variables from .env file
-const config = dotenv.config();
-if (config.error) {
-    console.error('Error parsing .env file:', config.error);
-    process.exit(1); // Exit the process if there's an error
-}
+// Load environment variables 
+dotenv.config();
 
-// Get PORT from environment variables
+// Validate environment variables
 const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI;
+
 
 // Connection to MongoDB
-const url = process.env.MONGO_URI;
-connectToMongoDB(url)
+
+connectToMongoDB(MONGO_URI)
     .then(() => {
         // Listen to the server
         app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`));
     })
     .catch(error => {
         console.error('Error connecting to MongoDB:', error);
-        process.exit(1); // Exit the process if there's an error
+        process.exit(9); // Exit the process if there's an error
     });
