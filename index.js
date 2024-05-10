@@ -13,7 +13,7 @@ if (config.error) {
 const PORT = process.env.PORT || 3000;
 
 // Connection to MongoDB
-const url = process.env.MONGO_URL;
+const url = process.env.MONGO_URI;
 connectToMongoDB(url)
     .then(() => {
         // Listen to the server
